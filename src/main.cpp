@@ -358,7 +358,7 @@ static void sleepCountdownLabel(char*out,size_t capacity){
   if(!timeout){snprintf(out,capacity,"SLP ON");return;}
   uint32_t age=millis()-lastInteraction;
   uint32_t seconds=age>=timeout?0:(timeout-age+999)/1000;
-  if(seconds>=60)snprintf(out,capacity,"SLP%luM",(unsigned long)((seconds+59)/60));
+  if(seconds>=60)snprintf(out,capacity,"SLP%lu",(unsigned long)((seconds+59)/60));
   else snprintf(out,capacity,"SLP%lu",(unsigned long)seconds);
 }
 static void originalTickerDigit(int x,int y,const uint8_t*base,int w,int h,uint8_t now,uint8_t prev,bool moving){
