@@ -98,7 +98,7 @@ static void rect(int x,int y,int w,int h,bool fill=false){ if(fill){for(int i=x;
 static void circle(int cx,int cy,int r){int x=r,y=0,err=0;while(x>=y){px(cx+x,cy+y);px(cx+y,cy+x);px(cx-y,cy+x);px(cx-x,cy+y);px(cx-x,cy-y);px(cx-y,cy-x);px(cx+y,cy-x);px(cx+x,cy-y);y++;if(err<=0)err+=2*y+1;if(err>0){x--;err-=2*x+1;}}}
 static const uint8_t* glyph(char c){ for(auto&g:font)if(g.c==c)return g.d;return font[sizeof(font)/sizeof(font[0])-1].d; }
 static void text(const char*s,int x,int y,uint8_t z=1){ while(*s){char c=*s++;if(c>='a'&&c<='z')c-=32;auto g=glyph(c);for(int i=0;i<3;i++)for(int j=0;j<5;j++)if(g[i]&(1<<j))for(int a=0;a<z;a++)for(int b=0;b<z;b++)px(x+i*z+a,y+j*z+b);x+=4*z;} }
-static void xorText(const char*s,int x,int y){while(*s){char c=*s++;if(c>='a'&&c<='z')c-=32;auto g=glyph(c);for(int i=0;i<3;i++)for(int j=0;j<5;j++)if(g[i]&(1<<j))xorPx(x+i,y+j);x+=4;}}
+/*static void xorText(const char*s,int x,int y){while(*s){char c=*s++;if(c>='a'&&c<='z')c-=32;auto g=glyph(c);for(int i=0;i<3;i++)for(int j=0;j<5;j++)if(g[i]&(1<<j))xorPx(x+i,y+j);x+=4;}}*/
 static void xorTextScaled(const char*s,int x,int y,uint8_t z){while(*s){char c=*s++;if(c>='a'&&c<='z')c-=32;auto g=glyph(c);for(int i=0;i<3;i++)for(int j=0;j<5;j++)if(g[i]&(1<<j))for(int a=0;a<z;a++)for(int b=0;b<z;b++)xorPx(x+i*z+a,y+j*z+b);x+=4*z;}}
 static void textXY(const char*s,int x,int y,uint8_t zx,uint8_t zy){while(*s){char c=*s++;if(c>='a'&&c<='z')c-=32;auto g=glyph(c);for(int i=0;i<3;i++)for(int j=0;j<5;j++)if(g[i]&(1<<j))for(int a=0;a<zx;a++)for(int b=0;b<zy;b++)px(x+i*zx+a,y+j*zy+b);x+=4*zx;}}
 static void center(const char*s,int y,uint8_t z=1){ text(s,(128-(int)strlen(s)*4*z)/2,y,z); }
@@ -505,7 +505,7 @@ static const char*appItems[]={"STOPWATCH","CALCULATOR","TORCH"};
 static const char*gameItems[]={"BREAKOUT","CAR DODGE"};
 static const char*settingItems[]={"TIME & DATE","SLEEP","DIAGNOSTICS","DISPLAY","BACK"};
 static const char*displayItems[]={"BRIGHTNESS","INVERT","FPS","BACK"};
-static void drawList(const char*name,const char**items,uint8_t count){
+/*static void drawList(const char*name,const char**items,uint8_t count){*/
   title(name);uint8_t scroll=(cursor/5)*5;
   for(int row=0;row<5;row++){
     int idx=scroll+row;if(idx>=count)break;int y=12+row*9;
